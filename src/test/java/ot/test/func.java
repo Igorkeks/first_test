@@ -3,16 +3,31 @@ package ot.test;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class func {
 
-    private String number;
+    public String number;
 
-    public String newReq() {
-        this.number = $(By.xpath("//div[@class='contacts-info']")).getText();
+
+
+    public void first_test_login() {
+
+
+//                Configuration.timeout = 8000;
+        open("http://213.79.88.85");
+        $(By.xpath("//input[@placeholder = 'Логин']")).setValue("support");
+        $(By.xpath("//input[@placeholder = 'Пароль']")).setValue("1234");
+        $(By.xpath("//button[text()='Войти']")).click();
+    }
+
+
+    public String reqNumber() {
+       $(By.xpath("//div[@id='request_created']"));
+       String text1=$(By.xpath("//div[@id='request_created']")).getText();
         //удаляем лишнее из номера заявки
-//        String s = text1;
-//        text1 = text1.replaceAll("Была создана заявка |✖", "");
+       String s = text1;
+       this.number = s.replaceAll("Была создана заявка |✖", "");
 
         return this.number;
     }

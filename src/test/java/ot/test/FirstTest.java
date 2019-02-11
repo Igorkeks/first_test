@@ -53,7 +53,7 @@ public class FirstTest {
             public void new_req(String addr, String tel, String typereq) {
 
 
-        new func().newReqButton();
+       // new func().newReqButton();
         //$(By.xpath("//button[@id='createNew']")).click();
                 $(By.xpath("//div[@id='set-address-focus']//input[@class='ant-input ant-select-search__field']")).isDisplayed();
                 $(By.xpath("//div[@class='right']//input[@class='ant-input ant-select-search__field']")).setValue(addr);
@@ -85,9 +85,6 @@ public class FirstTest {
              //   $(By.xpath("//button[@title='Сохранить']")).click();
                 //берем номер созданной заявки
            //     $(By.xpath("//div[@id='request_created']"));
-
-new func().closeFormButton();
-new func().exit();
 
 
 //                String text1=$(By.xpath("//div[@id='request_created']")).getText();
