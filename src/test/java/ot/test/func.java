@@ -2,8 +2,12 @@ package ot.test;
 
 import org.openqa.selenium.By;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+
 
 public class func {
 
@@ -48,6 +52,16 @@ public class func {
     public void exit(){
         $(By.xpath("//div[@id='profile-menu-icon']")).click();
         $(By.xpath("//a[@title='Выйти из системы']")).click();
+    }
+
+
+
+    public String Date(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date date = new Date();
+        String dateCreate = dateFormat.format(date);
+        return dateCreate;
+
     }
 
 
