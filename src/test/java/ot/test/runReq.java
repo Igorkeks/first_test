@@ -50,7 +50,7 @@ public class runReq {
 //проверка на недоступность выпадающего поля выбора ТИПА ЗАЯВКИ и вывод сообщения в доп меню, что дом не подключен к ЕДЦ
     @Test
         public void Test2() {
-        new func().first_test_login();
+//        new func().first_test_login();
         new func().newReqButton();
         try {
             new request().new_req("улица Новый Арбат, дом 26", "", "");
@@ -58,23 +58,26 @@ public class runReq {
         } catch (ElementNotFound a) {
             System.out.println("Ошибка " + a);
         } finally {
-            System.out.println($(By.xpath("//span[contains(text(),'Дом не подключен к ЕДЦ. Обращайтесь в свою диспетч')]")).isDisplayed());
-            //System.out.println($(By.xpath("//button[@title='Сохранить' and @disabled='']")).isDisplayed());
+            System.out.println('\n'+"Текст 'Дом не подключен к ЕДЦ'   "+$(By.xpath("//span[contains(text(),'Дом не подключен к ЕДЦ. Обращайтесь в свою диспетч')]")).isDisplayed());
+            System.out.println("Недоступность выпадающего списока Тип заявки   "+$(By.cssSelector("div.left span.ant-select.ant-select-disabled.ant-select-allow-clear")).isDisplayed());
+            System.out.println("Недоступность кнопки Сохранить   "+$(By.cssSelector("div.inner button.button.disabled")).isDisplayed());
         }
+        new func().closeFormButton();
     }
 
     @Test
     public void Test3() {
-        new func().first_test_login();
+//        new func().first_test_login();
         new func().newReqButton();
         new request().new_req("улица Молодцова, дом 17, корпус 1","","Неисправность системы вентиляции");
         new func().saveReqButton();
         System.out.println($(By.xpath("//div[@class='closeable-timed-notification']")).isDisplayed());
+        new func().closeFormButton();
     }
 
     @Test
     public void Test4() {
-        new func().first_test_login();
+//        new func().first_test_login();
         new func().newReqButton();
         new request().new_req("улица Молодцова, дом 17, корпус 1","","Неисправность системы вентиляции");
         $(By.xpath("//div[@class='right']//input[@class='ant-input ant-select-search__field']")).click();
@@ -90,6 +93,7 @@ public class runReq {
         System.out.println($(By.xpath("//input[@id='floor' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//input[@id='apartment' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//button[@class='button disabled' and @title='Сохранить']")).isDisplayed());
+        new func().closeFormButton();
     }
 
 

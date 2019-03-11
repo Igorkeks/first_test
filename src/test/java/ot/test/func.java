@@ -20,7 +20,7 @@ public class func {
 
 //                Configuration.timeout = 8000;
         open("http://213.79.88.85");
-        $(By.xpath("//input[@placeholder = 'Логин']")).setValue("support");
+        $(By.xpath("//input[@placeholder = 'Логин']")).setValue("testovyioo");
         $(By.xpath("//input[@placeholder = 'Пароль']")).setValue("1234");
         $(By.xpath("//button[text()='Войти']")).click();
     }

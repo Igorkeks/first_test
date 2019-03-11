@@ -38,9 +38,9 @@ public class request {
         $(By.xpath("//div[@class='right']//div[6]//input[@class='ant-input']")).setValue("ФИО");
         $(By.xpath("//span[text()='завтра']")).click();
         $(By.xpath("//span[text()='первая половина']")).click();
-        $(By.xpath("//div[text()='телефон']")).click();
-        $(By.xpath("//div[text()='телефон']")).getValue();
-        $(By.xpath("//div[@class='ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft']//li[@title='личное обращение (окно)']")).click();
+//        $(By.xpath("//div[text()='телефон']")).click();
+//        $(By.xpath("//div[text()='телефон']")).getValue();
+//        $(By.xpath("//div[@class='ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft']//li[@title='личное обращение (окно)']")).click();
 
         $(By.xpath("//div[@class='left']//textarea[@class='ant-input']")).setValue("Описание проблемы");
 
