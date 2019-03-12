@@ -27,15 +27,16 @@ public class request {
         $(By.xpath("//span[@class='ant-select-tree-node-content-wrapper ant-select-tree-node-content-wrapper-normal']")).click();
 
         $(By.id("address-comment")).setValue("Комментарий");
-        $(By.id("podezd")).setValue("2");
-        $(By.id("floor")).setValue("3");
-        $(By.id("apartment")).setValue("10");
+        $(By.id("podezd")).setValue("?><!@#12F");
+        $(By.id("floor")).setValue("#@!?><12345");
+        $(By.id("apartment")).setValue(")(*&^%$##@!3F210FGH");
         $(By.xpath("//span[contains(text(),'другой')]")).click();
 
         $(By.xpath("//div[@class='right']/div[@class='row']/span[@class='ant-input-affix-wrapper']/input[@class='ant-input']")).setValue("123");
         $(By.id("phone-main")).setValue(tel);
         $(By.id("phone-additional")).setValue("0987654321");
-        $(By.xpath("//div[@class='right']//div[6]//input[@class='ant-input']")).setValue("ФИО");
+        $(By.xpath("//div[@class='right']//div[6]//input[@class='ant-input']")).setValue("!№;12Ф,И,О");
+//                    div.right span.ant-input-affix-wrapper[css*='8']
         $(By.xpath("//span[text()='завтра']")).click();
         $(By.xpath("//span[text()='первая половина']")).click();
 //        $(By.xpath("//div[text()='телефон']")).click();
@@ -51,7 +52,7 @@ public class request {
 
         $(By.xpath("//td[contains(text(),'Тип заявки (категория)')]/following::td[1]")).shouldHave(text("Вентиляция"));
         $(By.xpath("//td[contains(text(),'Тип дефекта')]/following::td[1]")).shouldHave(text("Неисправность системы вентиляции"));
-        $(By.xpath("//td[@class='name'][contains(text(),'ОДС')]/following::td[1]")).shouldHave(text("ОДС автотесты"));
+        $(By.xpath("//td[@class='name'][contains(text(),'ОДС')]/following::td[1]")).shouldHave(text("ОДС № 1"));
         $(By.xpath("//td[contains(text(),'Управляющая компания')]/following::td[1]")).shouldHave(text("ГБУ «ЖИЛИЩНИК РАЙОНА АРБАТ»"));
         $(By.xpath("//td[contains(text(),'Описание')]/following::td[1]")).shouldHave(text("Описание проблемы"));
         $(By.xpath("//td[contains(text(),'Приоритет')]/following::td[1]")).shouldHave(text("Обычная"));
@@ -67,7 +68,7 @@ public class request {
         $(By.xpath("//td[contains(text(),'Дополнительный телефон')]/following::td[1]//input")).shouldHave(value("+7 (098) 765-43-21"));
         $(By.xpath("//td[contains(text(),'Платность')]/following::td[1]")).shouldHave(text("бесплатная / платная"));
         $(By.xpath("//td[text()='Дата составления']/following::td[1]")).shouldHave(text(date));
-        $(By.xpath("//td[contains(text(),'Источник')]/following::td[1]")).shouldHave(text("личное обращение (окно)"));
+        $(By.xpath("//td[contains(text(),'Источник')]/following::td[1]")).shouldHave(text("телефон"));
 
 
 
