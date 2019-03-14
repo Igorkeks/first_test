@@ -6,14 +6,10 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import ot.test.runReq.*;
 
 public class check {
 
@@ -26,7 +22,7 @@ public class check {
 
     @Test
     public void Test1(){
-        new func().first_test_login();
+        new AppHelper().appLogin();
 
      $(By.xpath("//span[@class='search ant-input-affix-wrapper']//input[@id='search']")).setValue("0900-0906-003526/19").pressEnter();
 

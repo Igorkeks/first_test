@@ -1,22 +1,26 @@
 package ot.test;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 
-public class func {
+public class AppHelper {
 
     public String number;
 
 
 
-    public void first_test_login() {
-
+    public void appLogin() {
 
 //                Configuration.timeout = 8000;
         open("http://213.79.88.85");
@@ -24,7 +28,6 @@ public class func {
         $(By.xpath("//input[@placeholder = 'Пароль']")).setValue("1234");
         $(By.xpath("//button[text()='Войти']")).click();
     }
-
 
     public String reqNumber() {
        $(By.xpath("//div[@id='request_created']"));
@@ -36,7 +39,7 @@ public class func {
         return this.number;
     }
 
-    public void newReqButton(){
+    public void clickNewReqButton(){
         $(By.xpath("//button[@id='createNew']")).click();
 
     }
@@ -46,7 +49,7 @@ public class func {
     }
 
     public void closeFormButton(){
-        $(By.xpath("//div[@id='new-request']//div[@class='close-button']")).click();
+        $(By.xpath("//div[@id='new-RequestHelper']//div[@class='close-button']")).click();
     }
 
     public void exit(){
@@ -55,17 +58,13 @@ public class func {
     }
 
 
-
-    public String Date(){
+    public String date(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date date = new Date();
         String dateCreate = dateFormat.format(date);
         return dateCreate;
-
     }
-
-
-    }
+}
 
 
 

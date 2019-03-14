@@ -2,47 +2,73 @@ package ot.test;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.sun.org.glassfish.gmbal.Description;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.*;
-
-
-
-import ot.test.func.*;
 
 import static com.codeborne.selenide.Selenide.$;
 
 
 public class runReq {
+    AppHelper appHelper;
+    RequestHelper requestHelper;
 
     @BeforeSuite
     public void doBeforeSuite() {
+        appHelper = new AppHelper();
+        requestHelper = new RequestHelper();
+        
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\KuzakovIO\\Desktop\\chromedriver.exe");
         Configuration.timeout = 10000;
         Configuration.startMaximized = true;
+        appHelper.appLogin();
     }
 
 
     @Test
-    public void Test1(){
-        new func().first_test_login();
-        new func().newReqButton();
-        new request().new_req("улица Новый Арбат, дом 25","1111111111","Неисправность системы вентиляции");
-        new func().saveReqButton();
-       String num= new func().reqNumber();
-       String dat=new func().Date();
-        new func().closeFormButton();
+    public void createRequestSuccessMinRequiredFieldsTest(){
+        appHelper.clickNewReqButton();
+
+        Request request =
+                new Request()
+                        .setTypereq("Неисправность системы вентиляции")
+                        .setAddr("улица Новый Арбат, дом 25")
+                        .setComment("rtyuiodsfdsf")
+                        .setTel("1111111111");
+        requestHelper.fillInRequest(request);
+
+        requestHelper.reqRight(request);
+    }
+
+    @Test
+    public void createRequestSuccessAllFieldsTest(){
+
+        //requestHelper.reqRight(request);
+    }
+
+    @Test
+    public void createRequestSuccessTest(){
+        appHelper.clickNewReqButton();
+
+        Request request =
+                new Request()
+                        .setTypereq("Неисправность системы вентиляции")
+                        .setAddr("улица Новый Арбат, дом 25")
+                        .setComment("rtyuiodsfdsf")
+                        .setTel("1111111111");
+        requestHelper.fillInRequest(request);
+
+        requestHelper.fillInRequest("улица Новый Арбат, дом 25","1111111111","Неисправность системы вентиляции");
+        appHelper.saveReqButton();
+        String num = appHelper.reqNumber();
+        String dat = appHelper.date();
+        appHelper.closeFormButton();
         System.out.println(dat);
         $(By.xpath("//span[@class='search ant-input-affix-wrapper']//input[@id='search']")).setValue(num).pressEnter();
         $(By.xpath("//div[@class='selectable-row even']")).click();
-        new request().reqRight(dat);
+        requestHelper.reqRight(dat);
         System.out.println(num);
 
     }
@@ -50,13 +76,12 @@ public class runReq {
 
 //проверка на недоступность выпадающего поля выбора ТИПА ЗАЯВКИ и вывод сообщения в доп меню, что дом не подключен к ЕДЦ
     @Test
-        public void Test2() {
+        public void createRequestBlockedTest() {
 
-//        new func().first_test_login();
-        new func().newReqButton();
+//        new AppHelper().appLogin();
+        appHelper.clickNewReqButton();
         try {
-            new request().new_req("улица Новый Арбат, дом 26", "", "");
-
+            new RequestHelper().fillInRequest("улица Новый Арбат, дом 26", "", "");
         } catch (ElementNotFound a) {
             System.out.println("Ошибка " + a);
         } finally {
@@ -64,15 +89,15 @@ public class runReq {
             System.out.println("Недоступность выпадающего списока Тип заявки   "+$(By.cssSelector("div.left span.ant-select.ant-select-disabled.ant-select-allow-clear")).isDisplayed());
             System.out.println("Недоступность кнопки Сохранить   "+$(By.cssSelector("div.inner button.button.disabled")).isDisplayed());
         }
-        new func().closeFormButton();
+        new AppHelper().closeFormButton();
     }
 
     @Test
-    public void Test3() {
-        new func().first_test_login();
-//      refresh();
-        new func().newReqButton();
-        new request().new_req("улица Молодцова, дом 17, корпус 1","!@#?","Неисправность системы вентиляции");
+    public void checkRequestFieldsRestrictionTest() {
+//        new AppHelper().appLogin();
+      refresh();
+        new AppHelper().clickNewReqButton();
+        new RequestHelper().fillInRequest("улица Молодцова, дом 17, корпус 1","!@#?","Неисправность системы вентиляции");
 
 //        System.out.println($(By.cssSelector("div.left>span[style*='color']")).getText());
         //проверка на символы в поле Описание
@@ -100,18 +125,19 @@ public class runReq {
             System.out.println("Значение поля Контактное лицо не совпадают") ;
             return;
         }
-//        new func().saveReqButton();
+//        new AppHelper().saveReqButton();
 //        System.out.println($(By.xpath("//div[@class='closeable-timed-notification']")).isDisplayed());
-        new func().closeFormButton();
+        new AppHelper().closeFormButton();
     }
 
     @Test
 //кнопка сохранить и поле тип заявки недоступны+аварийная заявка
     public void Test4() {
-//        refresh();
-        new func().first_test_login();
-        new func().newReqButton();
-        new request().new_req("улица Молодцова, дом 17, корпус 1","","Пар в подвале");
+
+        refresh();
+//        new AppHelper().appLogin();
+        new AppHelper().clickNewReqButton();
+        new RequestHelper().fillInRequest("улица Молодцова, дом 17, корпус 1","","Пар в подвале");
         $(By.xpath("//div[@class='right']//input[@class='ant-input ant-select-search__field']")).click();
         $(By.xpath("//div[@id='set-address-focus']//div//span[contains(@class,'ant-select-selection__clear')]")).click();
         System.out.println($(By.xpath("//div[@id='set-address-focus']//input[@class='ant-input ant-select-search__field' and @value='']")).isDisplayed());
@@ -121,7 +147,7 @@ public class runReq {
         System.out.println($(By.xpath("//input[@id='apartment' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//button[@class='button disabled' and @title='Сохранить']")).isDisplayed());
         System.out.println($(By.cssSelector("div[title*='Аварийная']")).isDisplayed());
-        new func().closeFormButton();
+        new AppHelper().closeFormButton();
     }
 
 
