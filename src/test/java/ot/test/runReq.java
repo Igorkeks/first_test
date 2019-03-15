@@ -19,7 +19,7 @@ public class runReq {
     public void doBeforeSuite() {
         appHelper = new AppHelper();
         requestHelper = new RequestHelper();
-        
+
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\KuzakovIO\\Desktop\\chromedriver.exe");
         Configuration.timeout = 10000;
         Configuration.startMaximized = true;
@@ -33,13 +33,23 @@ public class runReq {
 
         Request request =
                 new Request()
-                        .setTypereq("Неисправность системы вентиляции")
                         .setAddr("улица Новый Арбат, дом 25")
-                        .setComment("rtyuiodsfdsf")
+                        .setTypereq("Неисправность системы вентиляции")
                         .setTel("1111111111");
-        requestHelper.fillInRequest(request);
 
-        requestHelper.reqRight(request);
+        requestHelper.fillInRequest(request);
+        GetInformation information=new GetInformation()
+                .getODS();
+        System.out.println(information.ODS);
+//        appHelper.saveReqButton();
+        String num = appHelper.reqNumber();
+        String dat = appHelper.date();
+        appHelper.closeFormButton();
+        $(By.xpath("//span[@class='search ant-input-affix-wrapper']//input[@id='search']")).setValue(num).pressEnter();
+        $(By.xpath("//div[@class='selectable-row even']")).click();
+        requestHelper.reqRightMin(request);
+        System.out.println(dat);
+        System.out.println(num);
     }
 
     @Test
@@ -56,19 +66,27 @@ public class runReq {
                 new Request()
                         .setTypereq("Неисправность системы вентиляции")
                         .setAddr("улица Новый Арбат, дом 25")
-                        .setComment("rtyuiodsfdsf")
-                        .setTel("1111111111");
+                        .setComment("Комментарий")
+                        .setTel("1111111111")
+                        // .setDate("")
+                        .setPodezd("?><!@#12F")
+                        .setFloor("#@!?><12345")
+                        .setApartment(")(*&^%$##@!3F210FGH")
+                        .setCode("123")
+                        .setPhoneAdditional("0987654321")
+                        .setFio("!№;12Ф,И,О")
+                        .setDescriptionProblem("Описание проблемы");
         requestHelper.fillInRequest(request);
 
-        requestHelper.fillInRequest("улица Новый Арбат, дом 25","1111111111","Неисправность системы вентиляции");
+//        requestHelper.fillInRequest("улица Новый Арбат, дом 25","1111111111","Неисправность системы вентиляции");
         appHelper.saveReqButton();
         String num = appHelper.reqNumber();
         String dat = appHelper.date();
         appHelper.closeFormButton();
-        System.out.println(dat);
         $(By.xpath("//span[@class='search ant-input-affix-wrapper']//input[@id='search']")).setValue(num).pressEnter();
         $(By.xpath("//div[@class='selectable-row even']")).click();
-        requestHelper.reqRight(dat);
+        requestHelper.reqRightMax(request);
+        System.out.println(dat);
         System.out.println(num);
 
     }
@@ -89,14 +107,14 @@ public class runReq {
             System.out.println("Недоступность выпадающего списока Тип заявки   "+$(By.cssSelector("div.left span.ant-select.ant-select-disabled.ant-select-allow-clear")).isDisplayed());
             System.out.println("Недоступность кнопки Сохранить   "+$(By.cssSelector("div.inner button.button.disabled")).isDisplayed());
         }
-        new AppHelper().closeFormButton();
+        appHelper.closeFormButton();
     }
 
     @Test
     public void checkRequestFieldsRestrictionTest() {
 //        new AppHelper().appLogin();
       refresh();
-        new AppHelper().clickNewReqButton();
+        appHelper.clickNewReqButton();
         new RequestHelper().fillInRequest("улица Молодцова, дом 17, корпус 1","!@#?","Неисправность системы вентиляции");
 
 //        System.out.println($(By.cssSelector("div.left>span[style*='color']")).getText());
@@ -127,7 +145,7 @@ public class runReq {
         }
 //        new AppHelper().saveReqButton();
 //        System.out.println($(By.xpath("//div[@class='closeable-timed-notification']")).isDisplayed());
-        new AppHelper().closeFormButton();
+        appHelper.closeFormButton();
     }
 
     @Test
@@ -136,18 +154,18 @@ public class runReq {
 
         refresh();
 //        new AppHelper().appLogin();
-        new AppHelper().clickNewReqButton();
+        appHelper.clickNewReqButton();
         new RequestHelper().fillInRequest("улица Молодцова, дом 17, корпус 1","","Пар в подвале");
         $(By.xpath("//div[@class='right']//input[@class='ant-input ant-select-search__field']")).click();
         $(By.xpath("//div[@id='set-address-focus']//div//span[contains(@class,'ant-select-selection__clear')]")).click();
         System.out.println($(By.xpath("//div[@id='set-address-focus']//input[@class='ant-input ant-select-search__field' and @value='']")).isDisplayed());
-        System.out.println($(By.xpath("//span[@class='ant-select ant-select-disabled ant-select-allow-clear']")).isDisplayed());;
+        System.out.println($(By.xpath("//span[@class='ant-select ant-select-disabled ant-select-allow-clear']")).isDisplayed());
         System.out.println($(By.xpath("//input[@id='podezd' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//input[@id='floor' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//input[@id='apartment' and @value='']")).isDisplayed());
         System.out.println($(By.xpath("//button[@class='button disabled' and @title='Сохранить']")).isDisplayed());
         System.out.println($(By.cssSelector("div[title*='Аварийная']")).isDisplayed());
-        new AppHelper().closeFormButton();
+        appHelper.closeFormButton();
     }
 
 

@@ -23,7 +23,7 @@ public class AppHelper {
     public void appLogin() {
 
 //                Configuration.timeout = 8000;
-        open("http://213.79.88.85");
+        open("http://test.edc2.altarix.org");   // http://213.79.88.85
         $(By.xpath("//input[@placeholder = 'Логин']")).setValue("testovyioo");
         $(By.xpath("//input[@placeholder = 'Пароль']")).setValue("1234");
         $(By.xpath("//button[text()='Войти']")).click();
@@ -49,7 +49,7 @@ public class AppHelper {
     }
 
     public void closeFormButton(){
-        $(By.xpath("//div[@id='new-RequestHelper']//div[@class='close-button']")).click();
+        $(By.xpath("//div[@id='new-request']//div[@class='close-button']")).click();
     }
 
     public void exit(){
