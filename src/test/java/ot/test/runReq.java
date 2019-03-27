@@ -14,13 +14,17 @@ import static com.codeborne.selenide.Selenide.$;
 public class runReq {
     AppHelper appHelper;
     RequestHelper requestHelper;
+    Request request;
+    GetInformation getInformation;
 
     @BeforeSuite
     public void doBeforeSuite() {
         appHelper = new AppHelper();
         requestHelper = new RequestHelper();
-
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\KuzakovIO\\Desktop\\chromedriver.exe");
+        request = new Request();
+        getInformation=new GetInformation();
+// подключать строку если не удается подключить автоматический вебдрайвер
+       // System.setProperty("webdriver.chrome.driver", "C:\\Users\\KuzakovIO\\Desktop\\chromedriver.exe");
         Configuration.timeout = 10000;
         Configuration.startMaximized = true;
         appHelper.appLogin();
@@ -31,16 +35,14 @@ public class runReq {
     public void createRequestSuccessMinRequiredFieldsTest(){
         appHelper.clickNewReqButton();
 
-        Request request =
-                new Request()
-                        .setAddr("улица Новый Арбат, дом 25")
-                        .setTypereq("Неисправность системы вентиляции")
-                        .setTel("1111111111");
+           request     .setAddr("улица Новый Арбат, дом 25")
+                .setTypereq("Неисправность системы вентиляции")
+                .setTel("1111111111");
 
         requestHelper.fillInRequest(request);
-        GetInformation information=new GetInformation()
+        getInformation
                 .getODS();
-        System.out.println(information.ODS);
+        System.out.println(getInformation.ODS);
 //        appHelper.saveReqButton();
         String num = appHelper.reqNumber();
         String dat = appHelper.date();
